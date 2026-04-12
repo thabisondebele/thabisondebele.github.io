@@ -4,532 +4,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thabiso Ndebele | Data Analyst</title>
+    <title>Thabiso Ndebele | Data Scientist</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500;900&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-        /* Custom styles for the new Python theme */
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', sans-serif;
             background-color: #1E293B;
             color: #E2E8F0;
             overflow-x: hidden;
         }
-        
-        /* Background Animation */
         body::before {
             content: "";
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background:
                 radial-gradient(circle at 20% 30%, rgba(55, 118, 171, 0.15) 0%, transparent 30%),
                 radial-gradient(circle at 80% 70%, rgba(255, 212, 59, 0.15) 0%, transparent 30%);
             z-index: -1;
             animation: pulse 15s ease infinite alternate;
         }
-        
         @keyframes pulse {
             0% { opacity: 0.3; }
             50% { opacity: 0.5; }
             100% { opacity: 0.3; }
         }
-        
-        /* Preloader Styles */
+
+        /* ===== PRELOADER — LEFT ALIGNED ===== */
         #preloader {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background-color: #1E293B;
             z-index: 1000;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
+            padding-left: 2.5rem;
             transition: opacity 0.75s ease;
         }
-        #preloader.hidden {
-            opacity: 0;
-            pointer-events: none; /* Make it non-interactive when hidden */
-        }
+        #preloader.hidden { opacity: 0; pointer-events: none; }
         .preloader-text {
             font-family: 'JetBrains Mono', monospace;
             color: #94A3B8;
             white-space: pre;
+            text-align: left;
         }
         .preloader-text .text-green { color: #34D399; }
         .preloader-text .text-yellow { color: #FFD43B; }
         .preloader-text .cursor {
             display: inline-block;
             background-color: #FFD43B;
-            width: 10px;
-            height: 1.2em;
+            width: 10px; height: 1.2em;
             animation: blink 1s step-end infinite;
             vertical-align: bottom;
         }
 
-        .font-code {
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* Official Python color palette */
+        .font-code { font-family: 'JetBrains Mono', monospace; }
         .text-python-yellow { color: #FFD43B; }
         .text-python-blue { color: #3776AB; }
         .bg-python-blue { background-color: #3776AB; }
-        .text-error-red { color: #F87171; }
-        
-        /* Hero section layout grid */
+
+        /* Hero */
         .hero-grid {
             display: grid;
             grid-template-rows: 1fr;
             grid-template-columns: 1fr;
             height: 100vh;
-            position: relative;
-            z-index: 2;
+            position: relative; z-index: 2;
         }
-
-        /* Positioning elements in the corners */
-        .bottom-left { position: absolute; bottom: 2rem; left: 2rem; z-index: 20;}
-        .bottom-right { position: absolute; bottom: 2rem; right: 2rem; text-align: right; z-index: 20;}
-        .center-stage { grid-area: 1 / 1 / 2 / 2; display: flex; align-items: center; justify-content: center; position: relative; }
-
-        /* Hero name styling */
+        .bottom-left { position: absolute; bottom: 2rem; left: 2rem; z-index: 20; }
+        .bottom-right { position: absolute; bottom: 2rem; right: 2rem; text-align: right; z-index: 20; }
+        .center-stage { grid-area: 1/1/2/2; display: flex; align-items: center; justify-content: center; position: relative; }
         .hero-name {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            display: flex; flex-direction: column; align-items: center;
             font-size: clamp(4rem, 15vw, 11rem);
-            font-weight: 900;
-            line-height: 0.9;
-            letter-spacing: -0.05em;
-            position: relative;
-            z-index: 10;
+            font-weight: 900; line-height: 0.9; letter-spacing: -0.05em;
+            position: relative; z-index: 10;
         }
-        
-        /* Hero image styling */
-        .hero-image-container {
-            position: absolute;
-            width: 40%;
-            max-width: 550px;
-            height: auto;
-            z-index: 5;
-        }
+        .hero-image-container { position: absolute; width: 40%; max-width: 550px; height: auto; z-index: 5; }
         .hero-image {
-            width: 100%;
-            height: 100%;
-            opacity: 0.5;
+            width: 100%; height: 100%; opacity: 0.5;
             filter: grayscale(100%) contrast(120%);
             mask-image: linear-gradient(to top, transparent 0%, black 25%);
             -webkit-mask-image: linear-gradient(to top, transparent 0%, black 25%);
         }
 
-        /* Header and Navigation styles */
+        /* Header */
         .main-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 1.5rem 2rem;
-            z-index: 50;
-            display: flex;
-            justify-content: flex-end;
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 1.5rem 2rem; z-index: 50;
+            display: flex; justify-content: flex-end;
         }
-        
         .nav-container {
             background-color: rgba(30, 41, 59, 0.7);
             backdrop-filter: blur(8px);
-            border-radius: 9999px;
-            padding: 0.25rem;
+            border-radius: 9999px; padding: 0.25rem;
         }
-        
-        .nav-link {
-            position: relative;
-            z-index: 1;
-            color: #94A3B8;
-            transition: color 0.3s ease;
-            padding: 0.5rem 1rem;
+        .nav-link { position: relative; z-index: 1; color: #94A3B8; transition: color 0.3s ease; padding: 0.5rem 1rem; }
+        .nav-link:hover { color: #FFD43B; }
+        .social-link { transition: color 0.3s ease, transform 0.3s ease; }
+        .social-link:hover { color: #FFD43B; transform: scale(1.1); }
+
+        /* Typing */
+        .typing-container { position: relative; }
+        .typing-text { visibility: hidden; }
+        .typing-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        @keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; } }
+
+        /* Skills */
+        .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 2rem; }
+        @media (min-width: 1024px) { .skills-grid { grid-template-columns: repeat(3, 1fr); } }
+        .skill-category {
+            background-color: rgba(30, 41, 59, 0.6);
+            border: 1px solid #334155; border-radius: 0.75rem; padding: 1rem 1.25rem;
+            transition: border-color 0.3s ease, transform 0.3s ease;
         }
-        .nav-link:hover {
-            color: #FFD43B;
+        .skill-category:hover { border-color: #3776AB; transform: translateY(-2px); }
+        .skill-category-title {
+            font-family: 'JetBrains Mono', monospace; color: #FFD43B;
+            font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+            margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #334155;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .skill-category-title .cat-icon { color: #3776AB; font-size: 0.75rem; }
+        .skill-tag {
+            display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+            color: #CBD5E1; background-color: rgba(55, 118, 171, 0.12);
+            border: 1px solid rgba(55, 118, 171, 0.25); border-radius: 0.3rem;
+            padding: 0.2rem 0.5rem; margin: 0.2rem 0.2rem 0.2rem 0;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .skill-tag:hover { background-color: rgba(55, 118, 171, 0.3); color: #FFD43B; }
+
+        /* ===== EDUCATION SECTION ===== */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin-top: 2rem;
+        }
+        @media (min-width: 768px) { .edu-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .edu-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        .edu-card {
+            background-color: rgba(30, 41, 59, 0.7);
+            border: 1px solid #334155;
+            border-radius: 1rem;
+            padding: 1.5rem 1.5rem 1.25rem 1.75rem;
+            display: flex; flex-direction: column; gap: 0.4rem;
+            position: relative; overflow: hidden;
+            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .edu-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: linear-gradient(to bottom, #FFD43B, #3776AB);
+            border-radius: 1rem 0 0 1rem;
+        }
+        .edu-card:hover {
+            border-color: #3776AB;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(55, 118, 171, 0.15);
+        }
+        .edu-card.in-progress::before {
+            background: linear-gradient(to bottom, #34D399, #34D39966);
+        }
+        .edu-badge {
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+            font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+            padding: 0.2rem 0.6rem; border-radius: 9999px;
+            width: fit-content;
+        }
+        .badge-degree { background-color: rgba(55, 118, 171, 0.2); color: #3776AB; border: 1px solid rgba(55, 118, 171, 0.4); }
+        .badge-cert { background-color: rgba(255, 212, 59, 0.1); color: #FFD43B; border: 1px solid rgba(255, 212, 59, 0.3); }
+        .badge-progress { background-color: rgba(52, 211, 153, 0.1); color: #34D399; border: 1px solid rgba(52, 211, 153, 0.4); }
+        .edu-title { font-weight: 700; color: #F1F5F9; font-size: 0.95rem; line-height: 1.35; }
+        .edu-institution { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #94A3B8; }
+        .edu-year { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #64748B; margin-top: auto; padding-top: 0.5rem; }
+
+        /* Experience */
+        .experience-item {
+            position: relative; padding-left: 2.5rem; padding-bottom: 2.5rem;
+            border-left: 2px solid #334155;
+        }
+        .experience-item:last-child { padding-bottom: 0; }
+        .experience-item::before {
+            content: ''; position: absolute; left: -0.5rem; top: 0;
+            width: 1rem; height: 1rem; border-radius: 9999px; background-color: #FFD43B;
+        }
+        .experience-date { font-family: 'JetBrains Mono', monospace; color: #94A3B8; font-size: 0.875rem; }
+        .experience-title { font-weight: 600; color: white; margin-top: 0.25rem; }
+        .experience-company { color: #FFD43B; font-weight: 500; }
+        .experience-description { margin-top: 0.5rem; color: #94A3B8; line-height: 1.7; }
+
+        /* Projects */
+        .project-card {
+            background-color: #334155; border-radius: 0.75rem; overflow: hidden;
+            border: 1px solid #475569; transition: all 0.3s ease-in-out;
+            display: flex; flex-direction: column;
+        }
+        .project-card:hover {
+            transform: translateY(-5px); border-color: #FFD43B;
+            box-shadow: 0 10px 15px -3px rgba(255, 212, 59, 0.1), 0 4px 6px -2px rgba(255, 212, 59, 0.05);
+        }
+        .project-image-placeholder {
+            background-color: #475569; display: flex;
+            align-items: center; justify-content: center; color: #94A3B8;
         }
 
-        /* Social link hover effect */
-        .social-link {
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-        .social-link:hover {
-            color: #FFD43B;
-            transform: scale(1.1);
-        }
-        
-        /* Typing Animation Styles */
-        .typing-container {
-            position: relative;
-        }
-        .typing-text {
-            visibility: hidden;
-        }
-        .typing-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-        }
-        .typing-cursor::after {
-            content: '▋';
-            animation: blink 1s step-end infinite;
-            color: #FFD43B;
-        }
+        /* Contact */
+        .status-code { font-family: 'JetBrains Mono', monospace; color: #94A3B8; text-align: left; margin: 0 auto; max-width: fit-content; }
+        .connect-icons { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap; }
+        .connect-icon { font-size: 2rem; color: #94A3B8; transition: all 0.3s ease; }
+        .connect-icon:hover { color: #FFD43B; transform: scale(1.1); }
+        .quote-text { font-family: 'JetBrains Mono', monospace; color: #FFD43B; font-style: italic; margin-top: 2rem; text-align: center; }
 
-        @keyframes blink {
-            from, to { opacity: 1; }
-            50% { opacity: 0; }
+        /* Flip card */
+        .flip-card { background-color: transparent; width: 100%; max-width: 400px; height: 220px; perspective: 1000px; margin: 2rem auto; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%;
+            -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            border-radius: 12px; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: 20px; box-sizing: border-box;
         }
+        .flip-card-front { background-color: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid #FFD43B; }
+        .flip-card-back { background-color: rgba(255, 212, 59, 0.1); backdrop-filter: blur(10px); border: 1px solid #FFD43B; transform: rotateY(180deg); }
+        .flip-card-back-content { font-family: 'JetBrains Mono', monospace; color: #FFD43B; font-size: 1.5rem; font-weight: bold; }
 
-        /* --- SKILLS SECTION STYLES --- */
-        .skill-item {
-            transition: transform 0.3s ease, background-color 0.3s ease;
-            padding: 1rem;
-            border-radius: 0.5rem;
-        }
-        .skill-item:hover {
-            transform: scale(1.05);
-            background-color: rgba(71, 85, 105, 0.2);
-        }
+        .site-footer { padding: 2rem 0; text-align: center; color: #94A3B8; font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; }
 
-        .skill-icon-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0.9;
+        /* Mobile */
+        .mobile-menu-btn { display: none; background: none; border: none; color: #94A3B8; font-size: 1.5rem; cursor: pointer; z-index: 60; }
+        .mobile-menu {
+            position: fixed; top: 0; right: 0; width: 70%; height: 100vh;
+            background-color: #1E293B; z-index: 55;
+            transform: translateX(100%); transition: transform 0.3s ease-in-out;
+            padding-top: 5rem; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
         }
-        
-        .skill-icon-container img {
-             width: 100%;
-             height: 100%;
-             object-fit: contain;
-        }
+        .mobile-menu.active { transform: translateX(0); }
+        .mobile-menu .nav-link { font-size: 1.25rem; }
 
-        /* New Horizontal Progress Bar Style */
-        .progress-bar {
-            transition: width 1.5s ease-out;
-        }
-        
-        /* Skill percentage numbers */
-        .skill-percentage {
-            color: #3776AB !important;
-        }
-        
-        /* RESTORED: Floating Icons Background Animation Styles */
-        .animation-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .floating-icon {
-            position: absolute;
-            bottom: -100px;
-            color: rgba(148, 163, 184, 0.15);
-            animation: floatUp linear infinite;
-        }
-
+        /* Floating Icons */
+        .animation-container { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; }
+        .floating-icon { position: absolute; bottom: -100px; color: rgba(148, 163, 184, 0.15); animation: floatUp linear infinite; }
         @keyframes floatUp {
             0% { transform: translateY(0); opacity: 0; }
             10%, 90% { opacity: 1; }
             100% { transform: translateY(-120vh); opacity: 0; }
         }
 
-        /* Experience Section Styles */
-        .experience-container {
-            max-width: 4xl;
-            margin: 0 auto;
-        }
-
-        .experience-item {
-            position: relative;
-            padding-left: 2.5rem;
-            padding-bottom: 2.5rem;
-            border-left: 2px solid #334155;
-        }
-
-        .experience-item:last-child {
-            padding-bottom: 0;
-        }
-
-        .experience-item::before {
-            content: '';
-            position: absolute;
-            left: -0.5rem;
-            top: 0;
-            width: 1rem;
-            height: 1rem;
-            border-radius: 9999px;
-            background-color: #FFD43B;
-        }
-
-        .experience-date {
-            position: relative;
-            font-family: 'JetBrains Mono', monospace;
-            color: #94A3B8;
-            font-size: 0.875rem;
-        }
-
-        .experience-title {
-            font-weight: 600;
-            color: white;
-            margin-top: 0.25rem;
-        }
-
-        .experience-company {
-            color: #FFD43B;
-            font-weight: 500;
-        }
-
-        .experience-description {
-            margin-top: 0.5rem;
-            color: #94A3B8;
-        }
-        
-        /* --- PROJECTS SECTION STYLES --- */
-        .project-card {
-            background-color: #334155;
-            border-radius: 0.75rem;
-            overflow: hidden;
-            border: 1px solid #475569;
-            transition: all 0.3s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-5px);
-            border-color: #FFD43B;
-            box-shadow: 0 10px 15px -3px rgba(255, 212, 59, 0.1), 0 4px 6px -2px rgba(255, 212, 59, 0.05);
-        }
-        
-        .project-image-placeholder {
-            background-color: #475569;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #94A3B8;
-        }
-
-        /* Contact section styles */
-        .status-code {
-            font-family: 'JetBrains Mono', monospace;
-            color: #94A3B8;
-            text-align: left;
-            margin: 0 auto;
-            max-width: fit-content;
-        }
-        
-        .connect-icons {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-        
-        .connect-icon {
-            font-size: 2rem;
-            color: #94A3B8;
-            transition: all 0.3s ease;
-        }
-        
-        .connect-icon:hover {
-            color: #FFD43B;
-            transform: scale(1.1);
-        }
-        
-        .quote-text {
-            font-family: 'JetBrains Mono', monospace;
-            color: #FFD43B;
-            font-style: italic;
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        /* Flip card styles */
-        .flip-card {
-            background-color: transparent;
-            width: 100%;
-            max-width: 400px;
-            height: 220px;
-            perspective: 1000px;
-            margin: 2rem auto;
-        }
-
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-
-        .flip-card:hover .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .flip-card-front {
-            background-color: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid #FFD43B;
-        }
-
-        .flip-card-back {
-            background-color: rgba(255, 212, 59, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid #FFD43B;
-            transform: rotateY(180deg);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .flip-card-back-content {
-            font-family: 'JetBrains Mono', monospace;
-            color: #FFD43B;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        /* Footer styles */
-        .site-footer {
-            padding: 2rem 0;
-            text-align: center;
-            color: #94A3B8;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.875rem;
-        }
-
-        /* Mobile menu styles */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: #94A3B8;
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 60;
-        }
-
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 70%;
-            height: 100vh;
-            background-color: #1E293B;
-            z-index: 55;
-            transform: translateX(100%);
-            transition: transform 0.3s ease-in-out;
-            padding-top: 5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .mobile-menu.active {
-            transform: translateX(0);
-        }
-
-        .mobile-menu .nav-link {
-            font-size: 1.25rem;
-        }
-
-        /* Responsive adjustments */
         @media (max-width: 768px) {
-            .skill-item {
-                width: calc(50% - 1rem);
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-                position: fixed;
-                top: 1.5rem;
-                right: 2rem;
-            }
-            
-            .nav-container {
-                display: none;
-            }
-            
-            .hero-name {
-                font-size: clamp(3rem, 10vw, 8rem);
-            }
+            .skills-grid { grid-template-columns: 1fr; }
+            .mobile-menu-btn { display: block; position: fixed; top: 1.5rem; right: 2rem; }
+            .nav-container { display: none; }
+            .hero-name { font-size: clamp(3rem, 10vw, 8rem); }
         }
-
-        @media (max-width: 480px) {
-            .skill-item {
-                width: 100%;
-            margin-bottom: 1rem;
-            padding: 0.75rem;
-            border-radius: 0.375rem;
-            background-color: rgba(30, 41, 59, 0.5);
-                }
-                
-                .skill-icon-container {
-                    width: 24px;
-                    height: 24px;
-                }
-                
-                .skill-percentage {
-                    font-size: 0.875rem;
-                }
-                
-                .project-card {
-                    margin-bottom: 1.5rem;
-                }
-                
-                .flip-card {
-                    height: 180px;
-                }
-            }
     </style>
 </head>
 
@@ -543,47 +286,42 @@
             <span id="preloader-line-4"></span>
         </div>
     </div>
-    
+
     <div class="animation-container" id="animation-container"></div>
 
     <header id="main-header" class="main-header">
-        <button class="mobile-menu-btn" id="mobile-menu-btn">
-            <i class="fas fa-bars"></i>
-        </button>
-        
+        <button class="mobile-menu-btn" id="mobile-menu-btn"><i class="fas fa-bars"></i></button>
         <nav class="nav-container">
             <div class="flex gap-x-2">
                 <a href="#home" class="nav-link text-sm font-medium">Home</a>
                 <a href="#about" class="nav-link text-sm font-medium">About Me</a>
                 <a href="#skills" class="nav-link text-sm font-medium">Skills</a>
+                <a href="#education" class="nav-link text-sm font-medium">Education</a>
                 <a href="#experience" class="nav-link text-sm font-medium">Experience</a>
                 <a href="#projects" class="nav-link text-sm font-medium">Projects</a>
                 <a href="#contact" class="nav-link text-sm font-medium">Contact</a>
             </div>
         </nav>
-        
         <div class="mobile-menu" id="mobile-menu">
             <a href="#home" class="nav-link text-sm font-medium">Home</a>
             <a href="#about" class="nav-link text-sm font-medium">About Me</a>
             <a href="#skills" class="nav-link text-sm font-medium">Skills</a>
+            <a href="#education" class="nav-link text-sm font-medium">Education</a>
             <a href="#experience" class="nav-link text-sm font-medium">Experience</a>
             <a href="#projects" class="nav-link text-sm font-medium">Projects</a>
             <a href="#contact" class="nav-link text-sm font-medium">Contact</a>
         </div>
     </header>
 
+    <!-- HOME -->
     <section id="home" class="hero-grid">
         <div class="center-stage">
             <div class="hero-image-container">
                 <img src="homepage_picture.jpeg" onerror="this.onerror=null;this.src='https://placehold.co/600x800/000000/000000?text=Image+Not+Found';" alt="A portrait of Thabiso Ndebele" class="hero-image">
             </div>
             <h1 class="hero-name">
-                <div class="flex">
-                    <span>T</span><span>h</span><span>a</span><span>b</span><span>i</span><span>s</span><span>o</span>
-                </div>
-                <div class="flex text-python-yellow">
-                    <span>N</span><span>d</span><span>e</span><span>b</span><span>e</span><span>l</span><span>e</span>
-                </div>
+                <div class="flex"><span>T</span><span>h</span><span>a</span><span>b</span><span>i</span><span>s</span><span>o</span></div>
+                <div class="flex text-python-yellow"><span>N</span><span>d</span><span>e</span><span>b</span><span>e</span><span>l</span><span>e</span></div>
             </h1>
         </div>
         <div class="bottom-left">
@@ -595,12 +333,13 @@
         </div>
         <div class="bottom-right">
             <div class="text-right font-code text-lg">
-                <p class="text-python-blue"># Data Analyst</p>
+                <p class="text-python-blue"># Data Scientist</p>
                 <p class="text-python-yellow">'Vibe Coder'</p>
             </div>
         </div>
     </section>
 
+    <!-- ABOUT -->
     <section id="about" class="relative z-10 py-20 sm:py-32 bg-slate-900/70">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="max-w-3xl mx-auto">
@@ -609,194 +348,207 @@
                     <h2 class="typing-overlay font-code text-2xl text-python-yellow" id="about-title-anim"></h2>
                 </div>
                 <div class="typing-container mt-8">
-                    <pre class="text-lg sm:text-xl leading-8 text-slate-300 whitespace-pre-wrap typing-text"><code id="about-p1-visible">"""Hello! I'm Thabiso, a data analyst—which is a polite way of saying I argue with databases for a living until they reveal their secrets."""</code></pre>
+                    <pre class="text-lg sm:text-xl leading-8 text-slate-300 whitespace-pre-wrap typing-text"><code id="about-p1-visible">"""Hello! I am Thabiso, a data scientist who turns raw, messy data into models and insights that actually mean something."""</code></pre>
                     <pre class="typing-overlay text-lg sm:text-xl leading-8 text-slate-300 whitespace-pre-wrap"><code id="about-p1-anim"></code></pre>
                 </div>
                 <div class="typing-container mt-6">
-                    <pre class="text-lg sm:text-xl leading-8 text-slate-300 whitespace-pre-wrap typing-text"><code id="about-p2-visible">"""Based in Johannesburg, my journey into data was sparked by a fascination with its use in Formula 1. Watching engineers analyze everything from race patterns and pit-stop windows to wind direction in pursuit of a win is what led me to discover my passion. And for someone who was never a 'maths person', I've discovered I'm exceptionally good at making numbers make sense."""</code></pre>
+                    <pre class="text-lg sm:text-xl leading-8 text-slate-300 whitespace-pre-wrap typing-text"><code id="about-p2-visible">"""Based in Johannesburg, my journey into data science was sparked by a fascination with how Formula 1 engineers use analytics to find competitive advantages. Watching race strategy unfold in real time through data, from tyre degradation models to lap time predictions, made me realize that data science is where curiosity meets real world impact. I now bring that same obsession with patterns and performance to every dataset I work with."""</code></pre>
                     <pre class="typing-overlay text-lg sm:text-xl leading-8 text-slate-300 whitespace-pre-wrap"><code id="about-p2-anim"></code></pre>
                 </div>
                 <div class="typing-container mt-6">
-                    <pre class="text-lg sm:text-xl leading-8 text-slate-300 whitespace-pre-wrap typing-text"><code id="about-p3-visible">"""There are three things I enjoy the most: fast cars, a VLOOKUP that works on the first try, and a problem that refuses to be solved. So if your data is being difficult, let me have a chat with it. We'll sort it out."""</code></pre>
+                    <pre class="text-lg sm:text-xl leading-8 text-slate-300 whitespace-pre-wrap typing-text"><code id="about-p3-visible">"""There are three things I enjoy the most: fast cars, a machine learning model that converges on the first run, and a prediction problem that refuses to cooperate. So if your data needs structure, your features need engineering, or your model needs tuning, let me take a look. We will figure it out."""</code></pre>
                     <pre class="typing-overlay text-lg sm:text-xl leading-8 text-slate-300 whitespace-pre-wrap"><code id="about-p3-anim"></code></pre>
                 </div>
             </div>
         </div>
     </section>
-    
+
+    <!-- SKILLS -->
     <section id="skills" class="relative z-10 py-20 sm:py-32">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="max-w-3xl mx-auto text-center">
-                <div class="typing-container">
+            <div class="max-w-5xl mx-auto">
+                <div class="typing-container mb-2">
                     <h2 class="font-code text-2xl text-python-yellow typing-text" id="skills-title-visible">// My Skills</h2>
                     <h2 class="typing-overlay font-code text-2xl text-python-yellow" id="skills-title-anim"></h2>
                 </div>
-            </div>
-            <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-12">
-                <div class="text-center skill-item">
-                    <div class="relative w-28 h-28 mx-auto skill-card">
-                        <div class="skill-icon-container"><img src="icons/python-svgrepo-com.svg" alt="Python Icon"></div>
-                        <div class="absolute bottom-1 left-1 text-left">
-                            <span class="font-code text-lg font-bold skill-percentage" data-goal="78">0%</span>
-                            <div class="w-16 h-1.5 bg-slate-600 rounded-full mt-1 overflow-hidden">
-                                <div class="h-full bg-python-blue rounded-full progress-bar" style="width: 0%;"></div>
-                            </div>
-                        </div>
+                <p class="font-code text-sm text-slate-500 mb-8">
+                    <span class="text-python-blue">import</span> skills <span class="text-python-blue">from</span> <span class="text-python-yellow">'raw_data_to_insight'</span>
+                </p>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <div class="skill-category-title"><i class="fa-brands fa-python cat-icon"></i>Programming &amp; Data Handling</div>
+                        <span class="skill-tag">Python (Pandas, NumPy, Scikit-learn)</span>
+                        <span class="skill-tag">SQL (PostgreSQL, MySQL)</span>
+                        <span class="skill-tag">Data Cleaning &amp; Preprocessing</span>
+                        <span class="skill-tag">Exploratory Data Analysis (EDA)</span>
                     </div>
-                    <h3 class="mt-4 text-lg font-semibold text-white font-code"><span class="text-python-blue">Python</span>()</h3>
-                    <p class="mt-1 text-sm text-slate-400">Core language for data manipulation, automation, and analysis.</p>
-                </div>
-                <div class="text-center skill-item">
-                    <div class="relative w-28 h-28 mx-auto skill-card">
-                        <div class="skill-icon-container"><img src="icons/excel2-svgrepo-com.svg" alt="Excel Icon"></div>
-                        <div class="absolute bottom-1 left-1 text-left">
-                            <span class="font-code text-lg font-bold skill-percentage" data-goal="96">0%</span>
-                            <div class="w-16 h-1.5 bg-slate-600 rounded-full mt-1 overflow-hidden">
-                                <div class="h-full bg-python-blue rounded-full progress-bar" style="width: 0%;"></div>
-                            </div>
-                        </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title"><i class="fa-solid fa-brain cat-icon"></i>Machine Learning</div>
+                        <span class="skill-tag">Supervised Learning (Regression, Classification)</span>
+                        <span class="skill-tag">Unsupervised Learning (Clustering)</span>
+                        <span class="skill-tag">Model Evaluation &amp; Validation</span>
+                        <span class="skill-tag">Feature Engineering</span>
                     </div>
-                    <h3 class="mt-4 text-lg font-semibold text-white font-code"><span class="text-python-blue">Excel</span>()</h3>
-                    <p class="mt-1 text-sm text-slate-400">Advanced spreadsheet analysis, modeling, and dashboarding.</p>
-                </div>
-                <div class="text-center skill-item">
-                    <div class="relative w-28 h-28 mx-auto skill-card">
-                        <div class="skill-icon-container"><img src="icons/power-bi-icon.svg" alt="Power BI Icon"></div>
-                        <div class="absolute bottom-1 left-1 text-left">
-                            <span class="font-code text-lg font-bold skill-percentage" data-goal="90">0%</span>
-                            <div class="w-16 h-1.5 bg-slate-600 rounded-full mt-1 overflow-hidden">
-                                <div class="h-full bg-python-blue rounded-full progress-bar" style="width: 0%;"></div>
-                            </div>
-                        </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title"><i class="fa-solid fa-chart-line cat-icon"></i>Data Visualization</div>
+                        <span class="skill-tag">Power BI</span>
+                        <span class="skill-tag">Matplotlib</span>
+                        <span class="skill-tag">Seaborn</span>
+                        <span class="skill-tag">Plotly</span>
                     </div>
-                    <h3 class="mt-4 text-lg font-semibold text-white font-code"><span class="text-python-blue">Power_BI</span>()</h3>
-                    <p class="mt-1 text-sm text-slate-400">Creating interactive and insightful business intelligence reports.</p>
-                </div>
-                <div class="text-center skill-item">
-                    <div class="relative w-28 h-28 mx-auto skill-card">
-                        <div class="skill-icon-container"><img src="icons/mysql-svgrepo-com.svg" alt="MySQL Icon"></div>
-                        <div class="absolute bottom-1 left-1 text-left">
-                            <span class="font-code text-lg font-bold skill-percentage" data-goal="94">0%</span>
-                            <div class="w-16 h-1.5 bg-slate-600 rounded-full mt-1 overflow-hidden">
-                                <div class="h-full bg-python-blue rounded-full progress-bar" style="width: 0%;"></div>
-                            </div>
-                        </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title"><i class="fa-solid fa-database cat-icon"></i>Databases &amp; Data Management</div>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">Firebase (NoSQL)</span>
+                        <span class="skill-tag">Data Modeling</span>
+                        <span class="skill-tag">ETL Processes</span>
                     </div>
-                    <h3 class="mt-4 text-lg font-semibold text-white font-code"><span class="text-python-blue">MySQL</span>()</h3>
-                    <p class="mt-1 text-sm text-slate-400">Managing and querying data from relational database systems.</p>
-                </div>
-                <div class="text-center skill-item">
-                    <div class="relative w-28 h-28 mx-auto skill-card">
-                        <div class="skill-icon-container"><img src="icons/firebase-svgrepo-com.svg" alt="Firebase Icon"></div>
-                        <div class="absolute bottom-1 left-1 text-left">
-                            <span class="font-code text-lg font-bold skill-percentage" data-goal="95">0%</span>
-                            <div class="w-16 h-1.5 bg-slate-600 rounded-full mt-1 overflow-hidden">
-                                <div class="h-full bg-python-blue rounded-full progress-bar" style="width: 0%;"></div>
-                            </div>
-                        </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title"><i class="fa-solid fa-screwdriver-wrench cat-icon"></i>Tools &amp; Platforms</div>
+                        <span class="skill-tag">Jupyter Notebook</span>
+                        <span class="skill-tag">Google Colab</span>
+                        <span class="skill-tag">Git &amp; GitHub</span>
+                        <span class="skill-tag">VS Code</span>
                     </div>
-                    <h3 class="mt-4 text-lg font-semibold text-white font-code"><span class="text-python-blue">Firebase</span>()</h3>
-                    <p class="mt-1 text-sm text-slate-400">Utilizing NoSQL databases for web applications.</p>
-                </div>
-                <div class="text-center skill-item">
-                    <div class="relative w-28 h-28 mx-auto skill-card">
-                        <div class="skill-icon-container"><img src="icons/ai-svgrepo-com.svg" alt="AI Icon"></div>
-                        <div class="absolute bottom-1 left-1 text-left">
-                            <span class="font-code text-lg font-bold skill-percentage" data-goal="86">0%</span>
-                            <div class="w-16 h-1.5 bg-slate-600 rounded-full mt-1 overflow-hidden">
-                                <div class="h-full bg-python-blue rounded-full progress-bar" style="width: 0%;"></div>
-                            </div>
-                        </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title"><i class="fa-solid fa-robot cat-icon"></i>AI &amp; Advanced Capabilities</div>
+                        <span class="skill-tag">AI Prompt Engineering</span>
+                        <span class="skill-tag">API Integration</span>
+                        <span class="skill-tag">Basic Natural Language Processing (NLP)</span>
                     </div>
-                    <h3 class="mt-4 text-lg font-semibold text-white font-code"><span class="text-python-blue">AI_Prompting</span>()</h3>
-                    <p class="mt-1 text-sm text-slate-400">Crafting effective prompts for AI models.</p>
-                </div>
-                <div class="text-center skill-item">
-                    <div class="relative w-28 h-28 mx-auto skill-card">
-                        <div class="skill-icon-container"><img src="icons/figma-svgrepo-com.svg" alt="Figma Icon"></div>
-                        <div class="absolute bottom-1 left-1 text-left">
-                            <span class="font-code text-lg font-bold skill-percentage" data-goal="93">0%</span>
-                            <div class="w-16 h-1.5 bg-slate-600 rounded-full mt-1 overflow-hidden">
-                                <div class="h-full bg-python-blue rounded-full progress-bar" style="width: 0%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="mt-4 text-lg font-semibold text-white font-code"><span class="text-python-blue">Figma</span>()</h3>
-                    <p class="mt-1 text-sm text-slate-400">Designing and prototyping user interfaces.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="experience" class="relative z-10 py-20 sm:py-32 bg-slate-900/70">
+    <!-- EDUCATION & CERTIFICATIONS -->
+    <section id="education" class="relative z-10 py-20 sm:py-32 bg-slate-900/70">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto">
+                <div class="typing-container mb-2">
+                    <h2 class="font-code text-2xl text-python-yellow typing-text" id="edu-title-visible">// Education &amp; Certifications</h2>
+                    <h2 class="typing-overlay font-code text-2xl text-python-yellow" id="edu-title-anim"></h2>
+                </div>
+                <p class="font-code text-sm text-slate-500 mb-8">
+                    <span class="text-python-blue">import</span> knowledge <span class="text-python-blue">from</span> <span class="text-python-yellow">'continuous_learning'</span>
+                </p>
+
+                <div class="edu-grid">
+                    <!-- BSc Data Science -->
+                    <div class="edu-card">
+                        <span class="edu-badge badge-degree"><i class="fa-solid fa-graduation-cap"></i>&nbsp;Degree</span>
+                        <p class="edu-title">BSc Data Science</p>
+                        <p class="edu-institution">IU International University of Applied Sciences</p>
+                        <p class="edu-year"><i class="fa-solid fa-clock-rotate-left mr-1"></i>Currently Deferred &mdash; Resuming 2027</p>
+                    </div>
+
+                    <!-- Data Analytics Cert -->
+                    <div class="edu-card">
+                        <span class="edu-badge badge-cert"><i class="fa-solid fa-certificate"></i>&nbsp;Certification</span>
+                        <p class="edu-title">Data Analytics Certification</p>
+                        <p class="edu-institution">ALX Africa</p>
+                        <p class="edu-year"><i class="fa-solid fa-calendar mr-1"></i>2023</p>
+                    </div>
+
+                    <!-- Data Science Cert -->
+                    <div class="edu-card">
+                        <span class="edu-badge badge-cert"><i class="fa-solid fa-certificate"></i>&nbsp;Certification</span>
+                        <p class="edu-title">Data Science Certification</p>
+                        <p class="edu-institution">ALX Africa</p>
+                        <p class="edu-year"><i class="fa-solid fa-calendar mr-1"></i>2025</p>
+                    </div>
+
+                    <!-- LinkedIn Learning 1 -->
+                    <div class="edu-card">
+                        <span class="edu-badge badge-cert"><i class="fa-brands fa-linkedin-in"></i>&nbsp;LinkedIn Learning</span>
+                        <p class="edu-title">Introduction to Career Skills in Data Analytics</p>
+                        <p class="edu-institution">LinkedIn Learning</p>
+                        <p class="edu-year"><i class="fa-solid fa-calendar mr-1"></i>2024</p>
+                    </div>
+
+                    <!-- LinkedIn Learning 2 -->
+                    <div class="edu-card">
+                        <span class="edu-badge badge-cert"><i class="fa-brands fa-linkedin-in"></i>&nbsp;LinkedIn Learning</span>
+                        <p class="edu-title">Learning Data Analytics: 1 Foundations</p>
+                        <p class="edu-institution">LinkedIn Learning</p>
+                        <p class="edu-year"><i class="fa-solid fa-calendar mr-1"></i>2025</p>
+                    </div>
+
+                    <!-- AWS AI Practitioner — In Progress -->
+                    <div class="edu-card in-progress">
+                        <span class="edu-badge badge-progress"><i class="fa-solid fa-spinner fa-spin"></i>&nbsp;In Progress</span>
+                        <p class="edu-title">AWS AI Practitioner</p>
+                        <p class="edu-institution">Udacity x AWS</p>
+                        <p class="edu-year"><i class="fa-solid fa-hourglass-half mr-1"></i>2026 &mdash; Currently in Progress</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="relative z-10 py-20 sm:py-32">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="max-w-3xl mx-auto">
-                <div class="typing-container">
+                <div class="typing-container mb-2">
                     <h2 class="font-code text-2xl text-python-yellow typing-text" id="experience-title-visible">// Experience</h2>
                     <h2 class="typing-overlay font-code text-2xl text-python-yellow" id="experience-title-anim"></h2>
                 </div>
-                
-                <div class="mt-12 experience-container">
+                <p class="font-code text-sm text-slate-500 mb-8">
+                    <span class="text-python-blue">const</span> experience <span class="text-python-blue">=</span> <span class="text-python-yellow">require</span>(<span class="text-python-yellow">'real_world_problem_solving'</span>)
+                </p>
+                <div class="mt-4">
+                    <!-- Data Analytics Lead Mentor -->
                     <div class="experience-item">
-                        <div class="experience-date">April 2024 - Present</div>
-                        <h3 class="experience-title">BSc Data Science Student</h3>
-                        <div class="experience-company">IU International University of Applied Sciences</div>
-                        <p class="experience-description">
-                            I am currently acquiring a comprehensive understanding of data science principles, statistical analysis, machine learning, and data visualization techniques.
-                        </p>
-                    </div>
-                    
-                    <div class="experience-item">
-                        <div class="experience-date">January 2024 - Present</div>
-                        <h3 class="experience-title">Data Capturer</h3>
-                        <div class="experience-company">Freelance</div>
-                        <p class="experience-description">
-                            I accurately transcribe and input data from various sources into digital formats. My work has significantly improved data integrity and accessibility for multiple clients, streamlining their operations and decision-making processes.
-                        </p>
-                    </div>
-                    
-                    <div class="experience-item">
-                        <div class="experience-date">July 2024 - February 2025</div>
+                        <div class="experience-date">July 2024 &mdash; February 2025</div>
                         <h3 class="experience-title">Data Analytics Lead Mentor</h3>
-                        <div class="experience-company">ALX South Africa</div>
-                        <p class="experience-description">
-                            As a Lead Mentor, I guided and supported aspiring data analysts through their learning journey. I was responsible for facilitating group sessions, providing one-on-one assistance, and reviewing projects. My mentorship directly contributed to a 90% project completion rate for my mentees, preparing them for successful careers in the field.
-                        </p>
+                        <div class="experience-company">Sandtech ALX &mdash; Johannesburg, South Africa</div>
+                        <p class="experience-description">I guided learners through core data analytics concepts by leading interactive sessions and tailoring explanations to individual needs. Beyond teaching, I compiled weekly reports on session attendance and learner progress, analyzed feedback forms to continuously improve the program, and collaborated closely with mentors and course coordinators to ensure the curriculum evolved in line with learner performance.</p>
                     </div>
-                    
+
+                    <!-- Data Quality Control Intern -->
                     <div class="experience-item">
-                        <div class="experience-date">February 2025 - August 2025</div>
+                        <div class="experience-date">February 2025 &mdash; August 2025</div>
                         <h3 class="experience-title">Data Quality Control Intern</h3>
-                        <div class="experience-company">Top Image Africa & MTN</div>
-                        <p class="experience-description">
-                            In this 6 months internship, I was responsible for ensuring the accuracy and consistency of large datasets. I developed and implemented data cleaning protocols that reduced data entry errors, improving the overall reliability of business intelligence reports and supporting strategic planning initiatives.
-                        </p>
+                        <div class="experience-company">Top Image Africa &amp; MTN &mdash; Johannesburg, South Africa</div>
+                        <p class="experience-description">Working on MTN MoMo data, I ensured the accuracy and consistency of large datasets covering customer, agent, and merchant activity. I cleaned and validated KYC details, merchant profiles, and transaction records to reduce entry errors, monitored key quality indicators such as completeness and timeliness, and prepared structured datasets that empowered trade development and campaign teams to make better decisions on agent recruitment and MoMoPay adoption.</p>
+                    </div>
+
+                    <!-- Learner Experience Intern -->
+                    <div class="experience-item">
+                        <div class="experience-date">November 2025 &mdash; April 2026</div>
+                        <h3 class="experience-title">Learner Experience &amp; Front Desk Intern</h3>
+                        <div class="experience-company">ALX Africa &mdash; Johannesburg, South Africa</div>
+                        <p class="experience-description">I enhanced community engagement by designing visual assets on Canva and coordinating communication across WhatsApp and email to drive attendance for workshops and onboarding events. Serving as the primary point of contact for learners, I facilitated onboarding for new cohorts and used participation metrics and feedback data to identify engagement trends and deliver actionable recommendations that improved the overall learner journey.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="projects" class="relative z-10 py-20 sm:py-32">
+    <!-- PROJECTS -->
+    <section id="projects" class="relative z-10 py-20 sm:py-32 bg-slate-900/70">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="max-w-3xl mx-auto text-center">
-                 <div class="typing-container">
-                    <h2 class="font-code text-2xl text-python-yellow typing-text" id="projects-title-visible">// Featured Projects</h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="typing-container mb-2">
+                    <h2 class="font-code text-2xl text-python-yellow typing-text" id="projects-title-visible">// My Projects</h2>
                     <h2 class="typing-overlay font-code text-2xl text-python-yellow" id="projects-title-anim"></h2>
                 </div>
+                <p class="font-code text-sm text-slate-500 mb-8">
+                    <span class="text-python-blue">from</span> projects <span class="text-python-blue">import</span> <span class="text-python-yellow">build_data_driven_solutions</span>
+                </p>
             </div>
-            
-            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="project-card" onclick="window.location.href='projects.html'">
+
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Real F1 Project -->
+                <div class="project-card" style="cursor:pointer;" onclick="window.location.href='projects.html'">
                     <div class="project-image-placeholder aspect-[3/2]">
-                         <img src="pictures/project1pic.jpeg"
-                              onerror="this.onerror=null;this.src='https://placehold.co/600x400/475569/94A3B8?text=Project+Image';"
-                              alt="F1 Project Screenshot"
-                              class="w-full h-full object-cover">
+                        <img src="pictures/project1pic.jpeg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/475569/94A3B8?text=Project+Image';" alt="F1 Project Screenshot" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="font-code text-xl font-bold text-white">Qualifying Impact Analysis</h3>
-                        <p class="mt-2 text-slate-400 text-sm flex-grow">In this project, I set out to determine how much a driver's starting position influences their final race outcome. I analyzed data by circuit and season to find where a good qualifying lap is most critical.</p>
+                        <p class="mt-2 text-slate-400 text-sm flex-grow">I set out to determine how much a driver's starting position influences their final race outcome, analyzing data by circuit and season to find where a strong qualifying lap matters most.</p>
                         <div class="mt-4 flex flex-wrap gap-2">
                             <span class="text-xs font-medium bg-python-blue/20 text-python-blue rounded-full px-2 py-1">Python</span>
                             <span class="text-xs font-medium bg-slate-600 text-slate-300 rounded-full px-2 py-1">Pandas</span>
@@ -806,44 +558,46 @@
                     </div>
                 </div>
 
-                <div class="project-card" onclick="window.location.href='projects.html'">
+                <!-- Placeholder 1 -->
+                <div class="project-card">
                     <div class="project-image-placeholder aspect-[3/2]">
-                        <img src="pictures/project2pic.jpeg"
-                             onerror="this.onerror=null;this.src='https://placehold.co/600x400/475569/94A3B8?text=Project+Image';"
-                             alt="Sector Analysis Project Screenshot"
-                             class="w-full h-full object-cover">
+                        <div class="text-center p-4">
+                            <i class="fas fa-tools text-6xl text-python-yellow mb-4"></i>
+                            <p class="font-code text-python-yellow">Under Construction</p>
+                        </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="font-code text-xl font-bold text-white">Sector Performance Dashboard</h3>
-                        <p class="mt-2 text-slate-400 text-sm flex-grow">I tracked the performance of various market sectors like Tech and Healthcare over five years. My goal was to identify which performed best during different economic conditions, using data from Yahoo Finance.</p>
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            <span class="text-xs font-medium bg-python-blue/20 text-python-blue rounded-full px-2 py-1">Python</span>
-                            <span class="text-xs font-medium bg-slate-600 text-slate-300 rounded-full px-2 py-1">Power BI</span>
-                            <span class="text-xs font-medium bg-slate-600 text-slate-300 rounded-full px-2 py-1">Tableau</span>
+                        <h3 class="font-code text-xl font-bold text-white">Project Coming Soon</h3>
+                        <p class="mt-4 text-slate-400 text-sm flex-grow">This project is currently in the garage for a final pit stop. The full report is being tuned for maximum performance and will be heading on the track soon. Check back for the checkered flag!</p>
+                        <div class="mt-6">
+                            <a href="https://github.com/thabisondebele" target="_blank" class="inline-block bg-transparent text-python-yellow border border-python-yellow font-code text-sm px-4 py-2 rounded-md hover:bg-python-yellow hover:text-slate-900 transition-colors duration-300">
+                                <i class="fab fa-github mr-2"></i>View Project on GitHub
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <div class="project-card" onclick="window.location.href='projects.html'">
+                <!-- Placeholder 2 -->
+                <div class="project-card">
                     <div class="project-image-placeholder aspect-[3/2]">
-                        <img src="pictures/project3pic.jpeg"
-                             onerror="this.onerror=null;this.src='https://placehold.co/600x400/475569/94A3B8?text=Project+Image';"
-                             alt="Taxi Finder App Screenshot"
-                             class="w-full h-full object-cover">
+                        <div class="text-center p-4">
+                            <i class="fas fa-cog text-6xl text-python-yellow mb-4"></i>
+                            <p class="font-code text-python-yellow">Fine Tuning</p>
+                        </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="font-code text-xl font-bold text-white">Gauteng Taxi Finder App</h3>
-                        <p class="mt-2 text-slate-400 text-sm flex-grow">I developed this app using Firebase to provide Gauteng residents with real-time taxi information. It features route mapping, fare estimations, and location-based services to streamline public transport.</p>
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            <span class="text-xs font-medium bg-python-blue/20 text-python-blue rounded-full px-2 py-1">Firebase</span>
-                            <span class="text-xs font-medium bg-slate-600 text-slate-300 rounded-full px-2 py-1">Figma</span>
-                             <span class="text-xs font-medium bg-slate-600 text-slate-300 rounded-full px-2 py-1">UI/UX Design</span>
+                        <h3 class="font-code text-xl font-bold text-white">Project Coming Soon</h3>
+                        <p class="mt-4 text-slate-400 text-sm flex-grow">This project is currently in the garage for a final pit stop. The full report is being tuned for maximum performance and will be heading on the track soon. Check back for the checkered flag!</p>
+                        <div class="mt-6">
+                            <a href="https://github.com/thabisondebele" target="_blank" class="inline-block bg-transparent text-python-yellow border border-python-yellow font-code text-sm px-4 py-2 rounded-md hover:bg-python-yellow hover:text-slate-900 transition-colors duration-300">
+                                <i class="fab fa-github mr-2"></i>View Project on GitHub
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-16 text-center">
+            <div class="mt-10 text-center">
                 <a href="projects.html" class="inline-block bg-transparent text-python-yellow border-2 border-python-yellow font-bold font-code text-lg px-8 py-3 rounded-md hover:bg-python-yellow hover:text-slate-900 transition-colors duration-300">
                     Explore All Projects()
                 </a>
@@ -851,16 +605,16 @@
         </div>
     </section>
 
-    <section id="contact" class="relative z-10 py-20 sm:py-32 bg-slate-900/70">
+    <!-- CONTACT -->
+    <section id="contact" class="relative z-10 py-20 sm:py-32">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="max-w-3xl mx-auto text-center">
-                 <div class="typing-container">
+                <div class="typing-container">
                     <h2 class="font-code text-2xl text-python-yellow typing-text" id="contact-title-visible">// Connect</h2>
                     <h2 class="typing-overlay font-code text-2xl text-python-yellow" id="contact-title-anim"></h2>
                 </div>
                 <p class="mt-4 text-lg text-slate-400">My data skills are a great conversation starter. Let's Connect!</p>
             </div>
-
             <div class="mt-12 max-w-3xl mx-auto">
                 <div class="flip-card">
                     <div class="flip-card-inner">
@@ -882,32 +636,17 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="mt-8">
-                    <h3 class="text-xl text-python-yellow my-4 text-center">## Connect</h3>
+                <div class="mt-8 text-center">
+                    <h3 class="text-xl text-python-yellow my-4">## Connect</h3>
                 </div>
-                
                 <div class="connect-icons">
-                    <a href="https://www.linkedin.com/in/thabisondebele" target="_blank" class="connect-icon">
-                        <i class="fa-brands fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://github.com/thabisondebele" target="_blank" class="connect-icon">
-                        <i class="fa-brands fa-github"></i>
-                    </a>
-                    <a href="mailto:thabisonkosindebele@gmail.com" class="connect-icon">
-                        <i class="fa-solid fa-envelope"></i>
-                    </a>
-                    <a href="https://www.instagram.com/im_kingnkosi" target="_blank" class="connect-icon">
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-                    <a href="https://www.tiktok.com/@kingnkosindebele" target="_blank" class="connect-icon">
-                        <i class="fa-brands fa-tiktok"></i>
-                    </a>
-                    <a href="https://wa.me/27698002406" target="_blank" class="connect-icon">
-                        <i class="fa-brands fa-whatsapp"></i>
-                    </a>
+                    <a href="https://www.linkedin.com/in/thabisondebele" target="_blank" class="connect-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://github.com/thabisondebele" target="_blank" class="connect-icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="mailto:thabisonkosindebele@gmail.com" class="connect-icon"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="https://www.instagram.com/im_kingnkosi" target="_blank" class="connect-icon"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@kingnkosindebele" target="_blank" class="connect-icon"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://wa.me/27698002406" target="_blank" class="connect-icon"><i class="fa-brands fa-whatsapp"></i></a>
                 </div>
-                
                 <p class="quote-text">"Every data point tells a story; I make it a successful one."</p>
             </div>
         </div>
@@ -918,36 +657,26 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set current year in footer
+        document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('current-year').textContent = new Date().getFullYear();
-            
-            // Mobile menu toggle
+
+            // Mobile menu
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
-            
             if (mobileMenuBtn && mobileMenu) {
                 mobileMenuBtn.addEventListener('click', () => {
                     mobileMenu.classList.toggle('active');
-                    // Change icon based on state
-                    if (mobileMenu.classList.contains('active')) {
-                        mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
-                    } else {
-                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                    }
+                    mobileMenuBtn.innerHTML = mobileMenu.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
                 });
-                
-                // Close menu when clicking on links
-                const navLinks = mobileMenu.querySelectorAll('.nav-link');
-                navLinks.forEach(link => {
+                mobileMenu.querySelectorAll('.nav-link').forEach(link => {
                     link.addEventListener('click', () => {
                         mobileMenu.classList.remove('active');
                         mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
                     });
                 });
             }
-            
-            // --- Preloader Animation ---
+
+            // Preloader
             const preloader = document.getElementById('preloader');
             const lines = [
                 { el: document.getElementById('preloader-line-1'), text: "> Initializing portfolio sequence...", speed: 50 },
@@ -955,199 +684,89 @@
                 { el: document.getElementById('preloader-line-3'), text: "> Deploying content delivery network...", speed: 45 },
                 { el: document.getElementById('preloader-line-4'), text: "> Launching application... <span class='text-yellow'>READY</span><span class='cursor'></span>", speed: 50 }
             ];
-
             async function runPreloaderAnimation() {
                 for (const line of lines) {
                     await new Promise(resolve => {
                         let i = 0;
                         const interval = setInterval(() => {
-                            if (i <= line.text.length) {
-                                line.el.innerHTML = line.text.substring(0, i);
-                                i++;
-                            } else {
-                                clearInterval(interval);
-                                resolve();
-                            }
+                            if (i <= line.text.length) { line.el.innerHTML = line.text.substring(0, i); i++; }
+                            else { clearInterval(interval); resolve(); }
                         }, line.speed);
                     });
                 }
             }
-
-            // Run preloader animation and then remove it
             runPreloaderAnimation().then(() => {
                 setTimeout(() => {
                     preloader.classList.add('hidden');
-                    // Remove preloader from DOM after transition completes
-                    preloader.addEventListener('transitionend', () => {
-                        preloader.remove();
-                    });
+                    preloader.addEventListener('transitionend', () => preloader.remove());
                 }, 1000);
             });
 
-            // --- RESTORED: Floating Icons Background Animation ---
+            // Floating icons
             const container = document.getElementById('animation-container');
             if (container) {
-                const icons = [
-                    '0', '1', '101', '42', '{ }', 'Σ', 'π', 'μ', 'β', '∫', 'ƒ(x)',
-                    'SQL', 'SELECT', 'FROM', 'df', '()', '=>', 'import', 'pandas',
-                    'np', 'plt', 'GROUP BY', 'JOIN',
-                    '<i class="fa-solid fa-chart-simple"></i>',
-                    '<i class="fa-solid fa-chart-line"></i>',
-                    '<i class="fa-solid fa-chart-pie"></i>',
-                    '<i class="fa-solid fa-table-cells"></i>',
-                    '<i class="fa-brands fa-python"></i>'
-                ];
-                const iconCount = 58;
-                for (let i = 0; i < iconCount; i++) {
-                    const iconEl = document.createElement('span');
-                    iconEl.classList.add('floating-icon');
-                    const iconContent = icons[Math.floor(Math.random() * icons.length)];
-                    iconEl.innerHTML = iconContent;
-                    if (!iconContent.startsWith('<i')) {
-                        iconEl.classList.add('font-code');
-                    }
-                    iconEl.style.left = `${Math.random() * 100}%`;
-                    iconEl.style.fontSize = `${Math.random() * 1.5 + 0.5}rem`;
-                    iconEl.style.animationDuration = `${Math.random() * 18 + 13.5}s`;
-                    iconEl.style.animationDelay = `${Math.random() * 15}s`;
-                    container.appendChild(iconEl);
+                const icons = ['0','1','101','42','{ }','Σ','π','μ','β','∫','ƒ(x)','SQL','SELECT','FROM','df','()','import','pandas','np','plt','GROUP BY','JOIN',
+                    '<i class="fa-solid fa-chart-simple"></i>','<i class="fa-solid fa-chart-line"></i>',
+                    '<i class="fa-solid fa-chart-pie"></i>','<i class="fa-solid fa-table-cells"></i>',
+                    '<i class="fa-brands fa-python"></i>'];
+                for (let i = 0; i < 58; i++) {
+                    const el = document.createElement('span');
+                    el.classList.add('floating-icon');
+                    const ic = icons[Math.floor(Math.random() * icons.length)];
+                    el.innerHTML = ic;
+                    if (!ic.startsWith('<i')) el.classList.add('font-code');
+                    el.style.left = `${Math.random() * 100}%`;
+                    el.style.fontSize = `${Math.random() * 1.5 + 0.5}rem`;
+                    el.style.animationDuration = `${Math.random() * 18 + 13.5}s`;
+                    el.style.animationDelay = `${Math.random() * 15}s`;
+                    container.appendChild(el);
                 }
             }
-            
-            // --- Typing Animations ---
+
+            // Typing helper
             function typeWriter(element, text, speed, callback) {
-                let i = 0;
-                element.innerHTML = '';
+                let i = 0; element.innerHTML = '';
                 const timer = setInterval(() => {
-                    if (i < text.length) {
-                        element.innerHTML += text.charAt(i);
-                        i++;
-                    } else {
-                        clearInterval(timer);
-                        if (callback) callback();
-                    }
+                    if (i < text.length) { element.innerHTML += text.charAt(i); i++; }
+                    else { clearInterval(timer); if (callback) callback(); }
                 }, speed);
             }
 
-            // Initialize typing animations when section is in view
-            const aboutObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const title = document.getElementById('about-title-anim');
-                        const p1 = document.getElementById('about-p1-anim');
-                        const p2 = document.getElementById('about-p2-anim');
-                        const p3 = document.getElementById('about-p3-anim');
-                        
-                        typeWriter(title, '// About Me', 50, () => {
-                            document.getElementById('about-title-visible').style.visibility = 'visible';
-                        });
-                        
-                        setTimeout(() => {
-                            typeWriter(p1, `"""Hello! I'm Thabiso, a data analyst—which is a polite way of saying I argue with databases for a living until they reveal their secrets."""`, 20, () => {
-                                document.getElementById('about-p1-visible').style.visibility = 'visible';
-                            });
-                        }, 500);
-                        
-                        setTimeout(() => {
-                            typeWriter(p2, `"""Based in Johannesburg, my journey into data was sparked by a fascination with its use in Formula 1. Watching engineers analyze everything from race patterns and pit-stop windows to wind direction in pursuit of a win is what led me to discover my passion. And for someone who was never a 'maths person', I've discovered I'm exceptionally good at making numbers make sense."""`, 20, () => {
-                                document.getElementById('about-p2-visible').style.visibility = 'visible';
-                            });
-                        }, 1500);
-                        
-                        setTimeout(() => {
-                            typeWriter(p3, `"""There are three things I enjoy the most: fast cars, a VLOOKUP that works on the first try, and a problem that refuses to be solved. So if your data is being difficult, let me have a chat with it. We'll sort it out."""`, 20, () => {
-                                document.getElementById('about-p3-visible').style.visibility = 'visible';
-                            });
-                        }, 3000);
-                        
-                        aboutObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
+            function makeObserver(sectionId, fn) {
+                const obs = new IntersectionObserver(entries => {
+                    entries.forEach(entry => { if (entry.isIntersecting) { fn(); obs.unobserve(entry.target); } });
+                }, { threshold: 0.1 });
+                const el = document.getElementById(sectionId);
+                if (el) obs.observe(el);
+            }
 
-            aboutObserver.observe(document.getElementById('about'));
+            makeObserver('about', () => {
+                typeWriter(document.getElementById('about-title-anim'), '// About Me', 50, () => document.getElementById('about-title-visible').style.visibility = 'visible');
+                setTimeout(() => typeWriter(document.getElementById('about-p1-anim'), '"""Hello! I am Thabiso, a data scientist who turns raw, messy data into models and insights that actually mean something."""', 20, () => document.getElementById('about-p1-visible').style.visibility = 'visible'), 500);
+                setTimeout(() => typeWriter(document.getElementById('about-p2-anim'), '"""Based in Johannesburg, my journey into data science was sparked by a fascination with how Formula 1 engineers use analytics to find competitive advantages. Watching race strategy unfold in real time through data, from tyre degradation models to lap time predictions, made me realize that data science is where curiosity meets real world impact. I now bring that same obsession with patterns and performance to every dataset I work with."""', 20, () => document.getElementById('about-p2-visible').style.visibility = 'visible'), 1500);
+                setTimeout(() => typeWriter(document.getElementById('about-p3-anim'), '"""There are three things I enjoy the most: fast cars, a machine learning model that converges on the first run, and a prediction problem that refuses to cooperate. So if your data needs structure, your features need engineering, or your model needs tuning, let me take a look. We will figure it out."""', 20, () => document.getElementById('about-p3-visible').style.visibility = 'visible'), 3000);
+            });
 
-            // Skills title animation
-            const skillsObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const title = document.getElementById('skills-title-anim');
-                        typeWriter(title, '// My Skills', 50, () => {
-                            document.getElementById('skills-title-visible').style.visibility = 'visible';
-                        });
+            makeObserver('skills', () => {
+                typeWriter(document.getElementById('skills-title-anim'), '// My Skills', 50, () => document.getElementById('skills-title-visible').style.visibility = 'visible');
+            });
 
-                        const skillPercentages = document.querySelectorAll('.skill-percentage');
-                        const progressBars = document.querySelectorAll('.progress-bar');
-                        
-                        skillPercentages.forEach((el, index) => {
-                            const goal = parseInt(el.getAttribute('data-goal'));
-                            let current = 0;
-                            const increment = goal / 50;
-                            
-                            const timer = setInterval(() => {
-                                current += increment;
-                                if (current >= goal) {
-                                    current = goal;
-                                    clearInterval(timer);
-                                }
-                                el.textContent = Math.round(current) + '%';
-                                progressBars[index].style.width = current + '%';
-                            }, 20);
-                        });
-                        
-                        skillsObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
+            makeObserver('education', () => {
+                typeWriter(document.getElementById('edu-title-anim'), '// Education & Certifications', 50, () => document.getElementById('edu-title-visible').style.visibility = 'visible');
+            });
 
-            skillsObserver.observe(document.getElementById('skills'));
+            makeObserver('experience', () => {
+                typeWriter(document.getElementById('experience-title-anim'), '// Experience', 50, () => document.getElementById('experience-title-visible').style.visibility = 'visible');
+            });
 
-            // Experience title animation
-            const experienceObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const title = document.getElementById('experience-title-anim');
-                        typeWriter(title, '// Experience', 50, () => {
-                            document.getElementById('experience-title-visible').style.visibility = 'visible';
-                        });
-                        experienceObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
+            makeObserver('projects', () => {
+                typeWriter(document.getElementById('projects-title-anim'), '// My Projects', 50, () => document.getElementById('projects-title-visible').style.visibility = 'visible');
+            });
 
-            experienceObserver.observe(document.getElementById('experience'));
-
-            // Projects title animation
-            const projectsObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const title = document.getElementById('projects-title-anim');
-                        typeWriter(title, '// Featured Projects', 50, () => {
-                            document.getElementById('projects-title-visible').style.visibility = 'visible';
-                        });
-                        projectsObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            projectsObserver.observe(document.getElementById('projects'));
-
-            // Contact title animation
-            const contactObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const title = document.getElementById('contact-title-anim');
-                        typeWriter(title, '// Connect', 50, () => {
-                            document.getElementById('contact-title-visible').style.visibility = 'visible';
-                        });
-                        contactObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            contactObserver.observe(document.getElementById('contact'));
+            makeObserver('contact', () => {
+                typeWriter(document.getElementById('contact-title-anim'), '// Connect', 50, () => document.getElementById('contact-title-visible').style.visibility = 'visible');
+            });
         });
     </script>
-
 </body>
 </html>
