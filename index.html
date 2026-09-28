@@ -38,36 +38,6 @@
             100% { opacity: 0.3; }
         }
 
-        /* ===== PRELOADER — LEFT ALIGNED ===== */
-        #preloader {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: #1E293B;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            padding-left: 2.5rem;
-            transition: opacity 0.75s ease;
-        }
-        #preloader.hidden { opacity: 0; pointer-events: none; }
-        .preloader-text {
-            font-family: 'JetBrains Mono', monospace;
-            color: #94A3B8;
-            white-space: pre;
-            text-align: left;
-        }
-        .preloader-text .text-green { color: #34D399; }
-        .preloader-text .text-yellow { color: #FFD43B; }
-        .preloader-text .cursor {
-            display: inline-block;
-            background-color: #FFD43B;
-            width: 10px; height: 1.2em;
-            animation: blink 1s step-end infinite;
-            vertical-align: bottom;
-        }
-
         .font-code { font-family: 'JetBrains Mono', monospace; }
         .text-python-yellow { color: #FFD43B; }
         .text-python-blue { color: #3776AB; }
@@ -277,15 +247,6 @@
 </head>
 
 <body class="antialiased">
-
-    <div id="preloader">
-        <div class="preloader-text">
-            <span id="preloader-line-1"></span><br>
-            <span id="preloader-line-2"></span><br>
-            <span id="preloader-line-3"></span><br>
-            <span id="preloader-line-4"></span>
-        </div>
-    </div>
 
     <div class="animation-container" id="animation-container"></div>
 
@@ -675,32 +636,6 @@
                     });
                 });
             }
-
-            // Preloader
-            const preloader = document.getElementById('preloader');
-            const lines = [
-                { el: document.getElementById('preloader-line-1'), text: "> Initializing portfolio sequence...", speed: 50 },
-                { el: document.getElementById('preloader-line-2'), text: "> Compiling assets... <span class='text-green'>DONE</span>", speed: 40 },
-                { el: document.getElementById('preloader-line-3'), text: "> Deploying content delivery network...", speed: 45 },
-                { el: document.getElementById('preloader-line-4'), text: "> Launching application... <span class='text-yellow'>READY</span><span class='cursor'></span>", speed: 50 }
-            ];
-            async function runPreloaderAnimation() {
-                for (const line of lines) {
-                    await new Promise(resolve => {
-                        let i = 0;
-                        const interval = setInterval(() => {
-                            if (i <= line.text.length) { line.el.innerHTML = line.text.substring(0, i); i++; }
-                            else { clearInterval(interval); resolve(); }
-                        }, line.speed);
-                    });
-                }
-            }
-            runPreloaderAnimation().then(() => {
-                setTimeout(() => {
-                    preloader.classList.add('hidden');
-                    preloader.addEventListener('transitionend', () => preloader.remove());
-                }, 1000);
-            });
 
             // Floating icons
             const container = document.getElementById('animation-container');
